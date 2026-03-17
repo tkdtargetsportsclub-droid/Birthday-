@@ -1,150 +1,84 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html>
 <head>
-<title>A Small Surprise</title>
+<title>Surprise</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin:0;
-  font-family: 'Playfair Display', serif;
-  background: #f8e1e7;
-  color:#333;
+  font-family: Arial;
   text-align:center;
+  background:#ffe4ec;
 }
 
-/* Screens */
 .screen {
   display:none;
   height:100vh;
-  width:100%;
-  position:absolute;
-  top:0;
-  left:0;
-  display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
-  padding:20px;
-  box-sizing:border-box;
 }
 
 .active { display:flex; }
 
-h1 { font-size:28px; }
-p { font-size:18px; }
-
-/* Button */
 button {
-  margin-top:25px;
+  margin-top:20px;
   padding:10px 20px;
   border:none;
   border-radius:20px;
-  background:#e75480;
+  background:#ff4d6d;
   color:white;
   font-size:16px;
 }
 
-/* Envelope */
 .envelope {
   width:200px;
   height:120px;
-  background:#e75480;
+  background:#ff4d6d;
   border-radius:10px;
-  position:relative;
   cursor:pointer;
-}
-
-.flap {
-  position:absolute;
-  width:100%;
-  height:100%;
-  background:#ff8fab;
-  clip-path: polygon(0 0, 50% 50%, 100% 0);
-  transition:0.6s;
-}
-
-.open .flap {
-  transform:rotateX(180deg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  font-size:18px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- MUSIC (tap anywhere first time) -->
-<audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
-</audio>
-
-<!-- Envelope Screen -->
-<div class="screen active" id="screen0">
-  <h1>💌 A small note for you</h1>
-  <div class="envelope" onclick="openEnvelope(event)">
-    <div class="flap"></div>
-  </div>
-  <p>(Tap the envelope)</p>
+<!-- Screen 1 -->
+<div class="screen active" id="s1">
+  <h2>💌 Tap to open</h2>
+  <div class="envelope" onclick="next(2)">Open</div>
 </div>
 
-<!-- Slide 1 -->
-<div class="screen" id="screen1">
-  <h1>Hello Cutiee</h1>
-  <p>This is just a small effort to make your day a little better 😊</p>
-  <button onclick="next(2)">Next</button>
-</div>
-
-<!-- Slide 2 -->
-<div class="screen" id="screen2">
-  <h1>🙂</h1>
-  <p>You are genuinely a nice person,<br>
-  and yes… sometimes a little funny too 😄</p>
+<!-- Screen 2 -->
+<div class="screen" id="s2">
+  <h2>Hello Cutiee 😊</h2>
+  <p>This is just a small effort to make your day better.</p>
   <button onclick="next(3)">Next</button>
 </div>
 
-<!-- Slide 3 -->
-<div class="screen" id="screen3">
-  <h1>🌟</h1>
-  <p>I hope today brings you good moments,<br>
-  calm vibes, and lots of smiles ✨</p>
+<!-- Screen 3 -->
+<div class="screen" id="s3">
+  <h2>🙂</h2>
+  <p>You are a really nice person,<br>and a little funny too 😄</p>
   <button onclick="next(4)">Next</button>
 </div>
 
-<!-- Final -->
-<div class="screen" id="screen4">
-  <h1>🎂 Happy Birthday in Advance</h1>
-  <p>Just a little early wish for someone special 😊<br>
-  Hope your day turns out really nice and memorable ✨</p>
+<!-- Screen 4 -->
+<div class="screen" id="s4">
+  <h2>🎂 Happy Birthday in Advance</h2>
+  <p>Hope your day is full of smiles and good moments ✨</p>
 </div>
 
 <script>
-// play music on first tap
-document.body.addEventListener("click", function() {
-  let music = document.getElementById("music");
-  music.play().catch(()=>{});
-}, { once: true });
-
-// show screen
-function showScreen(num){
-  let screens = document.querySelectorAll(".screen");
-  screens.forEach(s => s.classList.remove("active"));
-  document.getElementById("screen"+num).classList.add("active");
-}
-
-// envelope open
-function openEnvelope(e){
-  e.stopPropagation(); // important fix
-  document.querySelector(".envelope").classList.add("open");
-
-  setTimeout(()=>{
-    showScreen(1);
-  },600);
-}
-
-// next button
-function next(num){
-  showScreen(num);
+function next(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("s"+n).classList.add("active");
 }
 </script>
 
